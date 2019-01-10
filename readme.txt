@@ -1,4 +1,5 @@
-MasterAVPlayer是基于AVFoundation封装的音频视频播放器
-让APP的播放器集成简洁和优雅
-使用方法：
-  第一步
+MasterAVPlayer is a Aodio and Video player whith is base on AVFoundation.
+How to get started
+step1:
+step2:
+  

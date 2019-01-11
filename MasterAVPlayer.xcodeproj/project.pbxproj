@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0709140321E89C5600825E5B /* MasterAVPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0709140221E89C5600825E5B /* MasterAVPlayer.m */; };
 		07890B1F21D774EB0037F430 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07890B1E21D774EB0037F430 /* AppDelegate.m */; };
 		07890B2221D774EB0037F430 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07890B2121D774EB0037F430 /* ViewController.m */; };
 		07890B2521D774EB0037F430 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07890B2321D774EB0037F430 /* Main.storyboard */; };
@@ -35,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0709140121E89C5600825E5B /* MasterAVPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterAVPlayer.h; sourceTree = "<group>"; };
+		0709140221E89C5600825E5B /* MasterAVPlayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterAVPlayer.m; sourceTree = "<group>"; };
 		07890B1A21D774EA0037F430 /* MasterAVPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MasterAVPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07890B1D21D774EB0037F430 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		07890B1E21D774EB0037F430 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -78,6 +81,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0709140021E89C3000825E5B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0709140121E89C5600825E5B /* MasterAVPlayer.h */,
+				0709140221E89C5600825E5B /* MasterAVPlayer.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		07890B1121D774EA0037F430 = {
 			isa = PBXGroup;
 			children = (
@@ -101,6 +113,7 @@
 		07890B1C21D774EA0037F430 /* MasterAVPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				0709140021E89C3000825E5B /* Views */,
 				07890B1D21D774EB0037F430 /* AppDelegate.h */,
 				07890B1E21D774EB0037F430 /* AppDelegate.m */,
 				07890B2021D774EB0037F430 /* ViewController.h */,
@@ -265,6 +278,7 @@
 				07890B2221D774EB0037F430 /* ViewController.m in Sources */,
 				07890B2D21D774EB0037F430 /* main.m in Sources */,
 				07890B1F21D774EB0037F430 /* AppDelegate.m in Sources */,
+				0709140321E89C5600825E5B /* MasterAVPlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

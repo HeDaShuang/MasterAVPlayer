@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0709140321E89C5600825E5B /* MasterAVPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0709140221E89C5600825E5B /* MasterAVPlayer.m */; };
+		07193CA121ED894A00D82EA4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07193CA021ED894A00D82EA4 /* AVFoundation.framework */; };
 		07890B1F21D774EB0037F430 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07890B1E21D774EB0037F430 /* AppDelegate.m */; };
 		07890B2221D774EB0037F430 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07890B2121D774EB0037F430 /* ViewController.m */; };
 		07890B2521D774EB0037F430 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07890B2321D774EB0037F430 /* Main.storyboard */; };
@@ -38,6 +39,8 @@
 /* Begin PBXFileReference section */
 		0709140121E89C5600825E5B /* MasterAVPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterAVPlayer.h; sourceTree = "<group>"; };
 		0709140221E89C5600825E5B /* MasterAVPlayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterAVPlayer.m; sourceTree = "<group>"; };
+		07193CA021ED894A00D82EA4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		07193CA321ED8A6F00D82EA4 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		07890B1A21D774EA0037F430 /* MasterAVPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MasterAVPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07890B1D21D774EB0037F430 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		07890B1E21D774EB0037F430 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -61,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07193CA121ED894A00D82EA4 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +94,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		07193C9F21ED894A00D82EA4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				07193CA021ED894A00D82EA4 /* AVFoundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		07890B1121D774EA0037F430 = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +109,7 @@
 				07890B3521D774EB0037F430 /* MasterAVPlayerTests */,
 				07890B4021D774EB0037F430 /* MasterAVPlayerUITests */,
 				07890B1B21D774EA0037F430 /* Products */,
+				07193C9F21ED894A00D82EA4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -123,6 +136,7 @@
 				07890B2821D774EB0037F430 /* LaunchScreen.storyboard */,
 				07890B2B21D774EB0037F430 /* Info.plist */,
 				07890B2C21D774EB0037F430 /* main.m */,
+				07193CA321ED8A6F00D82EA4 /* PrefixHeader.pch */,
 			);
 			path = MasterAVPlayer;
 			sourceTree = "<group>";
@@ -451,6 +465,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4ZV48THUSH;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/MasterAVPlayer/PrefixHeader.pch";
 				INFOPLIST_FILE = MasterAVPlayer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -468,6 +483,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4ZV48THUSH;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/MasterAVPlayer/PrefixHeader.pch";
 				INFOPLIST_FILE = MasterAVPlayer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

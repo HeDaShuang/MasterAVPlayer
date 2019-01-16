@@ -9,5 +9,11 @@
 #ifndef DfineHeader_h
 #define DfineHeader_h
 
+#define WeakSelf __weak typeof(self) weakSelf = self;
+
+#define color(r,g,b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
+#define RGB(r, g, b) color(r, g, b, 1.0f)
+#define APPGOLDERCOLOR RGB(198,171,99)      //新金色
+#define APP230GRAY RGB(230,230,230)
 
 #endif /* DfineHeader_h */

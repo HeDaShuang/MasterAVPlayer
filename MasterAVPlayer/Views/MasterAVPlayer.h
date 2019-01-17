@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MPlayerBottomView.h"
+#import "MPlayerControlPanel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -31,26 +33,31 @@ typedef NS_ENUM(NSUInteger,MPControlType) {
 
 @interface MasterAVPlayer : UIView
 
-//播放器状态
-@property(nonatomic, assign) MPlyerStatus mplyerstatus;
-
-//手势类型
-@property (nonatomic,assign) MPControlType controlType;
-
-//播放地址URL
-@property(nonatomic, copy) NSString *playURLStr;
-
-//当前播放的item
-@property (nonatomic, retain) AVPlayerItem *currentItem;
-
 //播放器
 @property(nonatomic, strong) AVPlayer *masterPlayer;
 
 //播放器图层
 @property(nonatomic, strong) AVPlayerLayer *mplayerLayer;
 
-//视频封面
-@property(nonatomic, strong) UIImageView *courseCover;
+//当前播放的item
+@property (nonatomic, retain) AVPlayerItem *currentItem;
+
+//播放器状态
+@property(nonatomic, assign) MPlyerStatus mplyerstatus;
+
+//手势类型
+@property (nonatomic,assign) MPControlType controlType;
+
+//是否全屏播放
+@property (nonatomic, assign) BOOL fullScreenFlag;
+
+//播放地址URL
+@property(nonatomic, copy) NSString *playURLStr;
+
+//播放器控制面板
+@property(nonatomic, strong) MPlayerControlPanel *playerControlPanel;
+
+
 
 @end
 

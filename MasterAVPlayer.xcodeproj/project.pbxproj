@@ -17,6 +17,9 @@
 		07890B2D21D774EB0037F430 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07890B2C21D774EB0037F430 /* main.m */; };
 		07890B3721D774EB0037F430 /* MasterAVPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07890B3621D774EB0037F430 /* MasterAVPlayerTests.m */; };
 		07890B4221D774EB0037F430 /* MasterAVPlayerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 07890B4121D774EB0037F430 /* MasterAVPlayerUITests.m */; };
+		078D46E021EECCF5001B5429 /* MPlayerControlPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 078D46DF21EECCF5001B5429 /* MPlayerControlPanel.m */; };
+		078D46E321EECE34001B5429 /* MPlayerBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 078D46E121EECE34001B5429 /* MPlayerBottomView.m */; };
+		078D46E721EED4B8001B5429 /* UIView+FrameAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 078D46E621EED4B8001B5429 /* UIView+FrameAccessor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +60,13 @@
 		07890B3D21D774EB0037F430 /* MasterAVPlayerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MasterAVPlayerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		07890B4121D774EB0037F430 /* MasterAVPlayerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterAVPlayerUITests.m; sourceTree = "<group>"; };
 		07890B4321D774EB0037F430 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		078D46DE21EECCF5001B5429 /* MPlayerControlPanel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPlayerControlPanel.h; sourceTree = "<group>"; };
+		078D46DF21EECCF5001B5429 /* MPlayerControlPanel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MPlayerControlPanel.m; sourceTree = "<group>"; };
+		078D46E121EECE34001B5429 /* MPlayerBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPlayerBottomView.m; sourceTree = "<group>"; };
+		078D46E221EECE34001B5429 /* MPlayerBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPlayerBottomView.h; sourceTree = "<group>"; };
+		078D46E421EED0D0001B5429 /* DfineHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DfineHeader.h; sourceTree = "<group>"; };
+		078D46E521EED4B8001B5429 /* UIView+FrameAccessor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+FrameAccessor.h"; sourceTree = "<group>"; };
+		078D46E621EED4B8001B5429 /* UIView+FrameAccessor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+FrameAccessor.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,8 +98,12 @@
 		0709140021E89C3000825E5B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				078D46E221EECE34001B5429 /* MPlayerBottomView.h */,
+				078D46E121EECE34001B5429 /* MPlayerBottomView.m */,
 				0709140121E89C5600825E5B /* MasterAVPlayer.h */,
 				0709140221E89C5600825E5B /* MasterAVPlayer.m */,
+				078D46DE21EECCF5001B5429 /* MPlayerControlPanel.h */,
+				078D46DF21EECCF5001B5429 /* MPlayerControlPanel.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -137,6 +151,9 @@
 				07890B2B21D774EB0037F430 /* Info.plist */,
 				07890B2C21D774EB0037F430 /* main.m */,
 				07193CA321ED8A6F00D82EA4 /* PrefixHeader.pch */,
+				078D46E421EED0D0001B5429 /* DfineHeader.h */,
+				078D46E521EED4B8001B5429 /* UIView+FrameAccessor.h */,
+				078D46E621EED4B8001B5429 /* UIView+FrameAccessor.m */,
 			);
 			path = MasterAVPlayer;
 			sourceTree = "<group>";
@@ -289,8 +306,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				078D46E721EED4B8001B5429 /* UIView+FrameAccessor.m in Sources */,
+				078D46E321EECE34001B5429 /* MPlayerBottomView.m in Sources */,
 				07890B2221D774EB0037F430 /* ViewController.m in Sources */,
 				07890B2D21D774EB0037F430 /* main.m in Sources */,
+				078D46E021EECCF5001B5429 /* MPlayerControlPanel.m in Sources */,
 				07890B1F21D774EB0037F430 /* AppDelegate.m in Sources */,
 				0709140321E89C5600825E5B /* MasterAVPlayer.m in Sources */,
 			);

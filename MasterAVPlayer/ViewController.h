@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MasterAVPlayer.h"
+
 
 @interface ViewController : UIViewController
 
+@property(nonatomic, strong) MasterAVPlayer *masterPlayer;
 
 @end
 

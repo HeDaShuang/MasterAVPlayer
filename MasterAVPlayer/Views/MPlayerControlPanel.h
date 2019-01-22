@@ -8,9 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+#define PLYERBTNWIDTH 40.0f   //按钮大小
+#define FSBTNFX 55.0f         //课程集按钮全屏 fullscreen switch btn fx
+#define SBTNFX 15.0f          //课程集按钮非全屏 fx
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MPlayerControlPanel : UIView
+
+//全屏 YES
+@property(nonatomic, assign) BOOL fullScreenFlag;
 
 //视频封面
 @property(nonatomic, strong) UIImageView *courseCover;
@@ -33,8 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 //加载中和加载失败提示
 @property(nonatomic, strong) UILabel *reloadLabel;
 
-//获取底部操控视图的滑竿
-@property(nonatomic, strong) UISlider *pSlider;
+
 
 
 @end

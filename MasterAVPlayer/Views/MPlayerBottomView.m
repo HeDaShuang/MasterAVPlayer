@@ -119,7 +119,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = [UIColor blackColor];
+        self.alpha = 0.5;
     }
     
     return self;
@@ -130,6 +131,8 @@
     
     fw = self.width;
     fh = self.height;
+    
+    [self setUIWith:self.fullScreenFlag];
 }
 
 -(void)setPlaydurationStr:(NSString *)playdurationStr{

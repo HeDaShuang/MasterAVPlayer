@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MPlayerBottomView.h"
 #import "MPlayerControlPanel.h"
+#import "ChaptersListView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -57,7 +58,11 @@ typedef NS_ENUM(NSUInteger,MPControlType) {
 //播放器控制面板
 @property(nonatomic, strong) MPlayerControlPanel *playerControlPanel;
 
+//播放器底部操控视图
+@property(nonatomic, strong) MPlayerBottomView *mpbView;
 
+//视频集列表
+@property(nonatomic, strong) ChaptersListView *chaptersListView;
 
 @end
 

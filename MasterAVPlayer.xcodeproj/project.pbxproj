@@ -20,6 +20,8 @@
 		078D46E021EECCF5001B5429 /* MPlayerControlPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 078D46DF21EECCF5001B5429 /* MPlayerControlPanel.m */; };
 		078D46E321EECE34001B5429 /* MPlayerBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 078D46E121EECE34001B5429 /* MPlayerBottomView.m */; };
 		078D46E721EED4B8001B5429 /* UIView+FrameAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 078D46E621EED4B8001B5429 /* UIView+FrameAccessor.m */; };
+		07DB66F121F6FF5000BB21FF /* ChaptersListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07DB66EE21F6FF5000BB21FF /* ChaptersListView.m */; };
+		07DB66F221F6FF5000BB21FF /* ChaptersListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07DB66F021F6FF5000BB21FF /* ChaptersListCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,10 @@
 		078D46E421EED0D0001B5429 /* DfineHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DfineHeader.h; sourceTree = "<group>"; };
 		078D46E521EED4B8001B5429 /* UIView+FrameAccessor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+FrameAccessor.h"; sourceTree = "<group>"; };
 		078D46E621EED4B8001B5429 /* UIView+FrameAccessor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+FrameAccessor.m"; sourceTree = "<group>"; };
+		07DB66ED21F6FF5000BB21FF /* ChaptersListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChaptersListView.h; sourceTree = "<group>"; };
+		07DB66EE21F6FF5000BB21FF /* ChaptersListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChaptersListView.m; sourceTree = "<group>"; };
+		07DB66EF21F6FF5000BB21FF /* ChaptersListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChaptersListCell.h; sourceTree = "<group>"; };
+		07DB66F021F6FF5000BB21FF /* ChaptersListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChaptersListCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +104,10 @@
 		0709140021E89C3000825E5B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				07DB66EF21F6FF5000BB21FF /* ChaptersListCell.h */,
+				07DB66F021F6FF5000BB21FF /* ChaptersListCell.m */,
+				07DB66ED21F6FF5000BB21FF /* ChaptersListView.h */,
+				07DB66EE21F6FF5000BB21FF /* ChaptersListView.m */,
 				078D46E221EECE34001B5429 /* MPlayerBottomView.h */,
 				078D46E121EECE34001B5429 /* MPlayerBottomView.m */,
 				0709140121E89C5600825E5B /* MasterAVPlayer.h */,
@@ -312,6 +322,8 @@
 				07890B2D21D774EB0037F430 /* main.m in Sources */,
 				078D46E021EECCF5001B5429 /* MPlayerControlPanel.m in Sources */,
 				07890B1F21D774EB0037F430 /* AppDelegate.m in Sources */,
+				07DB66F221F6FF5000BB21FF /* ChaptersListCell.m in Sources */,
+				07DB66F121F6FF5000BB21FF /* ChaptersListView.m in Sources */,
 				0709140321E89C5600825E5B /* MasterAVPlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

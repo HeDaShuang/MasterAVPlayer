@@ -20,7 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, assign) BOOL fullScreenFlag;
 
 //视频封面
-@property(nonatomic, strong) UIImageView *courseCover;
+@property(nonatomic, strong) UIImageView *videoCover;
+@property(nonatomic, copy) NSString *coverStr;
 
 //全屏返回按钮(退出全屏)
 @property(nonatomic, strong) UIButton *quitFScreenBtn;

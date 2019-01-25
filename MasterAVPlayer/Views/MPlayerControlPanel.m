@@ -82,7 +82,7 @@
         _playBtn = [UIButton new];
         _playBtn.backgroundColor = [UIColor yellowColor];
         [_playBtn setImage:[UIImage imageNamed:@"c_pause_icon"] forState:UIControlStateNormal];
-        //[_playBtn addTarget:self action:@selector(playBtnTouchSelector) forControlEvents:UIControlEventTouchUpInside];
+        [_playBtn addTarget:self action:@selector(playBtnTouchSelector) forControlEvents:UIControlEventTouchUpInside];
     }
     return _playBtn;
 }
@@ -115,7 +115,7 @@
         _videoCover.contentMode = UIViewContentModeScaleAspectFill;
         _videoCover.clipsToBounds = YES;
         _videoCover.backgroundColor = [UIColor blackColor];
-        [_videoCover setImage:[UIImage imageNamed:@"testcover1"]];
+        [_videoCover setImage:[UIImage imageNamed:@"bb"]];
     }
     
     return _videoCover;
@@ -146,5 +146,11 @@
     return _reloadLabel;
 }
 
+
+-(void)playBtnTouchSelector{
+    if ([_delegate respondsToSelector:@selector(playerPanelDelegatePlayBtnTouchSelector)]) {
+        [_delegate playerPanelDelegatePlayBtnTouchSelector];
+    }
+}
 
 @end

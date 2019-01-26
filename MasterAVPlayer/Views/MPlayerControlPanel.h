@@ -16,7 +16,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol playerPanelDelegate <NSObject>
 
+//播放按钮代理事件
 -(void)playerPanelDelegatePlayBtnTouchSelector;
+
+//下一个视频
+-(void)playerPanelDelegateNextBtnTouchSelector;
+
+//上一个视频
+-(void)playerPanelDelegatePreviousBtnTouchSelector;
+
+//退出全屏按钮代理事件
+-(void)playerPanelDelegateQuitFScreenBtnSelector;
 
 @end
 
@@ -27,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //视频封面
 @property(nonatomic, strong) UIImageView *videoCover;
+
 @property(nonatomic, copy) NSString *coverStr;
 
 //全屏返回按钮(退出全屏)
@@ -48,7 +59,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong) UILabel *reloadLabel;
 
 @property(nonatomic, weak) id<playerPanelDelegate> delegate;
-
 
 @end
 

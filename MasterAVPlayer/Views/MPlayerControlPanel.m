@@ -70,8 +70,7 @@
     if (!_quitFScreenBtn) {
         _quitFScreenBtn = [UIButton new];
         [_quitFScreenBtn setImage:[UIImage imageNamed:@"backarrowicon50"] forState:UIControlStateNormal];
-        
-        //[_quitFScreenBtn addTarget:self action:@selector(quitFScreenBtnSelector) forControlEvents:UIControlEventTouchUpInside];
+        [_quitFScreenBtn addTarget:self action:@selector(quitFScreenBtnSelector) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return _quitFScreenBtn;
@@ -92,7 +91,7 @@
         _previousBtn = [UIButton new];
         _previousBtn.backgroundColor = [UIColor cyanColor];
         [_previousBtn setImage:[UIImage imageNamed:@"c_previous_icon"] forState:UIControlStateNormal];
-        //[_previousBtn addTarget:self action:@selector(previousBtnTouchSelector) forControlEvents:UIControlEventTouchUpInside];
+        [_previousBtn addTarget:self action:@selector(previousBtnTouchSelector) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return _previousBtn;
@@ -103,7 +102,7 @@
         _nextBtn = [UIButton new];
         _nextBtn.backgroundColor = [UIColor redColor];
         [_nextBtn setImage:[UIImage imageNamed:@"c_next_icon"] forState:UIControlStateNormal];
-        //[_nextBtn addTarget:self action:@selector(nextBtnTouchSelector) forControlEvents:UIControlEventTouchUpInside];
+        [_nextBtn addTarget:self action:@selector(nextBtnTouchSelector) forControlEvents:UIControlEventTouchUpInside];
     }
     
     return _nextBtn;
@@ -150,6 +149,24 @@
 -(void)playBtnTouchSelector{
     if ([_delegate respondsToSelector:@selector(playerPanelDelegatePlayBtnTouchSelector)]) {
         [_delegate playerPanelDelegatePlayBtnTouchSelector];
+    }
+}
+
+-(void)nextBtnTouchSelector{
+    if ([_delegate respondsToSelector:@selector(playerPanelDelegateNextBtnTouchSelector)]) {
+        [_delegate playerPanelDelegateNextBtnTouchSelector];
+    }
+}
+
+-(void)previousBtnTouchSelector{
+    if ([_delegate respondsToSelector:@selector(playerPanelDelegatePreviousBtnTouchSelector)]) {
+        [_delegate playerPanelDelegatePreviousBtnTouchSelector];
+    }
+}
+
+-(void)quitFScreenBtnSelector{
+    if ([_delegate respondsToSelector:@selector(playerPanelDelegateQuitFScreenBtnSelector)]) {
+        [_delegate playerPanelDelegateQuitFScreenBtnSelector];
     }
 }
 

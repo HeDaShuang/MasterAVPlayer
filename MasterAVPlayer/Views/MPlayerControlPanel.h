@@ -58,6 +58,9 @@ NS_ASSUME_NONNULL_BEGIN
 //加载中和加载失败提示
 @property(nonatomic, strong) UILabel *reloadLabel;
 
+//系统状态栏
+@property(nonatomic, strong) UIView *statusBar;
+
 @property(nonatomic, weak) id<playerPanelDelegate> delegate;
 
 @end

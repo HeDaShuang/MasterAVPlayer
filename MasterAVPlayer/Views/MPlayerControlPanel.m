@@ -14,9 +14,10 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor purpleColor];
-        self.alpha = 0.8;
+        self.alpha = 1;
         
         self.coverStr = @"testcover1";
+        self.statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
         
         [self addSubview:self.videoCover];
         [self addSubview:self.quitFScreenBtn];
@@ -25,6 +26,7 @@
         [self addSubview:self.nextBtn];
         [self addSubview:self.reloadLabel];
         [self addSubview:self.loadingIV];
+        [self addSubview:self.statusBar];
     }
     
     return self;
@@ -48,6 +50,10 @@
         self.playBtn.frame = CGRectMake(self.height/2-PLYERBTNWIDTH/2, self.width/2-PLYERBTNWIDTH/2, PLYERBTNWIDTH, PLYERBTNWIDTH);
         self.previousBtn.frame = CGRectMake(FSBTNFX, self.width/2-PLYERBTNWIDTH/2, PLYERBTNWIDTH, PLYERBTNWIDTH);
         self.nextBtn.frame = CGRectMake(self.height-FSBTNFX-PLYERBTNWIDTH, self.width/2-PLYERBTNWIDTH/2, PLYERBTNWIDTH, PLYERBTNWIDTH);
+        
+        self.statusBar.frame = CGRectMake(0, 0, self.height, 20);
+        self.statusBar.hidden = YES;
+
     } else {
         self.quitFScreenBtn.hidden = YES;
         self.videoCover.frame = CGRectMake(0, 0, self.width, self.height);
@@ -57,6 +63,9 @@
         self.playBtn.frame = CGRectMake(self.width/2-PLYERBTNWIDTH/2, self.height/2-PLYERBTNWIDTH/2, PLYERBTNWIDTH, PLYERBTNWIDTH);
         self.previousBtn.frame = CGRectMake(SBTNFX, self.height/2-PLYERBTNWIDTH/2, PLYERBTNWIDTH, PLYERBTNWIDTH);
         self.nextBtn.frame = CGRectMake(self.width-SBTNFX-PLYERBTNWIDTH, self.height/2-PLYERBTNWIDTH/2, PLYERBTNWIDTH, PLYERBTNWIDTH);
+        
+        self.statusBar.frame = CGRectMake(0, 0, self.width, 20);
+        self.statusBar.hidden = NO;
     }
     
 }

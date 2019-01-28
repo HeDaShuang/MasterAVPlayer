@@ -13,6 +13,7 @@
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
+        
         self.backgroundColor = [UIColor greenColor];
         
         self.playerControlPanel = [[MPlayerControlPanel alloc] init];
@@ -22,12 +23,90 @@
         [self addSubview:self.playerControlPanel];
         [self addSubview:self.mpbView];
         [self addSubview:self.chaptersListView];
+        
+        [self addObserver];
     }
     
     return self;
 }
 
+-(void)addObserver{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOritentationChangeSelector) name:UIDeviceOrientationDidChangeNotification object:nil];
+}
 
+-(void)deviceOritentationChangeSelector{
+//    if (self.masterPlayer==nil){
+//        return;
+//    }
+    
+    UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
+    UIInterfaceOrientation interfaceOrientation = (UIInterfaceOrientation)orientation;
+    switch (interfaceOrientation) {
+        case UIInterfaceOrientationPortraitUpsideDown:{
+        }
+            break;
+        case UIInterfaceOrientationPortrait:{
+            [self quitFromFullScreen];
+        }
+            break;
+        case UIInterfaceOrientationLandscapeLeft:{
+            [self rotatetoFullScreenWithInterfaceOrientation:interfaceOrientation];
+        }
+            break;
+        case UIInterfaceOrientationLandscapeRight:{
+            [self rotatetoFullScreenWithInterfaceOrientation:interfaceOrientation];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+
+//非全屏
+-(void)quitFromFullScreen
+{
+    if(!self.masterPlayer) return;
+    
+    WeakSelf;
+    [self removeFromSuperview];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        weakSelf.transform = CGAffineTransformIdentity;
+        weakSelf.frame = CGRectMake(0, 0, ScreenWidth, ScreenWidth/1.875);
+        weakSelf.fullScreenFlag = NO;
+    } completion:^(BOOL finished) {
+    }];
+    
+}
+
+//全屏
+-(void)rotatetoFullScreenWithInterfaceOrientation:(UIInterfaceOrientation )interfaceOrientation{
+    
+    
+    self.transform = CGAffineTransformIdentity;
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        
+        if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
+            self.transform = CGAffineTransformMakeRotation(-M_PI_2);
+        }
+        else if(interfaceOrientation == UIInterfaceOrientationLandscapeRight){
+            self.transform = CGAffineTransformMakeRotation(M_PI_2);
+        }
+        else{
+            NSLog(@"不用旋转");
+        }
+    } completion:^(BOOL finished) {
+        
+    }];
+    
+    self.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight); //0 0 375  667
+    
+    self.fullScreenFlag = YES;
+    
+    [[UIApplication sharedApplication].keyWindow addSubview:self];
+}
 -(void)setFullScreenFlag:(BOOL)fullScreenFlag{
     
     _fullScreenFlag = fullScreenFlag;
@@ -46,8 +125,6 @@
         self.mplayerLayer.frame = CGRectMake(0, 0, self.height, self.width);
         self.playerControlPanel.frame = CGRectMake(0, 0, self.height, self.width);
  
-//        self.statusBar.frame = CGRectMake(0, 0, self.height, 20);
-//        self.statusBar.hidden = YES;
         
     } else {
         self.chaptersListView.hidden = YES;
@@ -55,13 +132,6 @@
         self.mpbView.frame = CGRectMake(0, self.height-40, self.width, 40);
         self.mplayerLayer.frame = CGRectMake(0, 0, self.width, self.height);
         self.playerControlPanel.frame = CGRectMake(0, 0, self.width, self.height);
-        
-//        if ([ToolBox ifDeviceisiPhoneX]) {
-//            self.statusBar.frame = CGRectMake(0, -35, self.width, 20);
-//        } else {
-//            self.statusBar.frame = CGRectMake(0, 0, self.width, 20);
-//        }
-//        self.statusBar.hidden = NO;
     }
     
     //self.mpbView.delegate = self;

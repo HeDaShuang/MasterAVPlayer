@@ -13,16 +13,28 @@
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor greenColor];
+        self.backgroundColor = [UIColor clearColor];
         
-//        self.playerControlPanel = [[MPlayerControlPanel alloc] init];
-//        self.mpbView = [[MPlayerBottomView alloc] init];
-//        self.chaptersListView = [[ChaptersListView alloc] init];
-//
-//        [self addSubview:self.playerControlPanel];
-//        [self addSubview:self.mpbView];
-//        [self addSubview:self.chaptersListView];
-        [[UIApplication sharedApplication].keyWindow addSubview:self];
+        self.playerControlPanel = [[MPlayerControlPanel alloc] init];
+        self.mpbView = [[MPlayerBottomView alloc] init];
+        self.chaptersListView = [[ChaptersListView alloc] init];
+
+        [self addSubview:self.playerControlPanel];
+        [self addSubview:self.mpbView];
+        [self addSubview:self.chaptersListView];
+        
+        testView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 30)];
+        testView.backgroundColor = [UIColor purpleColor];
+        //[self addSubview:testView];
+        
+        UILabel *testLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 30)];
+        testLabel.text = @"向上";
+        testLabel.textAlignment = NSTextAlignmentCenter;
+        testLabel.textColor = [UIColor whiteColor];
+        
+        [testView addSubview:testLabel];
+        
+        [self.playerSuperView addSubview:self];
 
         [self addObserver];
     }
@@ -69,6 +81,10 @@
 //    if(!self.masterPlayer) return;
     NSLog(@"ScreenWidth = %f  ScreenHeight = %f", ScreenWidth, ScreenHeight);
     
+    testView.frame = CGRectMake(0, 0, 50, 30);
+
+    [self removeFromSuperview];
+    
     WeakSelf;
     [UIView animateWithDuration:0.3 animations:^{
         weakSelf.transform = CGAffineTransformIdentity;
@@ -77,13 +93,21 @@
     } completion:^(BOOL finished) {
     }];
     
+    [self.playerSuperView addSubview:self];
+    
 }
 
 //全屏
 -(void)rotatetoFullScreenWithInterfaceOrientation:(UIInterfaceOrientation )interfaceOrientation{
     
     //    if(!self.masterPlayer) return;
+    
+    testView.frame = CGRectMake(0, 0, 50, 30);
+
+    [self removeFromSuperview];
+    
     self.transform = CGAffineTransformIdentity;
+
 
     [UIView animateWithDuration:0.3 animations:^{
         if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
@@ -96,14 +120,17 @@
             NSLog(@"不用旋转");
         }
         
-        self.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight); //0 0 375  667
-        self.fullScreenFlag = YES;
 
     } completion:^(BOOL finished) {
         
     }];
     
     
+    self.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight); //0 0 375  667
+    self.fullScreenFlag = YES;
+
+    [[UIApplication sharedApplication].keyWindow addSubview:self];
+
 }
 
 -(void)setFullScreenFlag:(BOOL)fullScreenFlag{
@@ -124,7 +151,7 @@
         self.mplayerLayer.frame = CGRectMake(0, 0, self.height, self.width);
         self.playerControlPanel.frame = CGRectMake(0, 0, self.height, self.width);
  
-        
+
     } else {
         self.chaptersListView.hidden = YES;
         
@@ -132,15 +159,7 @@
         self.mplayerLayer.frame = CGRectMake(0, 0, self.width, self.height);
         self.playerControlPanel.frame = CGRectMake(0, 0, self.width, self.height);
     }
-    
-    //self.mpbView.delegate = self;
-//    if (self.selectMCCModel.videoDuration) {
-//
-//        self.mpbView.durationStr = self.selectMCCModel.videoDuration;
-//    } else {
-//        self.mpbView.durationStr = @"00:00:00";
-//    }
-    
+        
     self.mpbView.fullScreenFlag = self.fullScreenFlag;
     self.chaptersListView.fullScreenFlag = self.fullScreenFlag;
     self.playerControlPanel.fullScreenFlag = self.fullScreenFlag;

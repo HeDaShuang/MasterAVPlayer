@@ -33,6 +33,9 @@ typedef NS_ENUM(NSUInteger,MPControlType) {
 };
 
 @interface MasterAVPlayer : UIView
+{
+    UIView *testView;
+}
 @property(nonatomic, strong) UIView *playerSuperView;
 
 //播放器

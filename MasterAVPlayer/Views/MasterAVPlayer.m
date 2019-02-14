@@ -13,17 +13,17 @@
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        
         self.backgroundColor = [UIColor greenColor];
         
-        self.playerControlPanel = [[MPlayerControlPanel alloc] init];
-        self.mpbView = [[MPlayerBottomView alloc] init];
-        self.chaptersListView = [[ChaptersListView alloc] init];
+//        self.playerControlPanel = [[MPlayerControlPanel alloc] init];
+//        self.mpbView = [[MPlayerBottomView alloc] init];
+//        self.chaptersListView = [[ChaptersListView alloc] init];
+//
+//        [self addSubview:self.playerControlPanel];
+//        [self addSubview:self.mpbView];
+//        [self addSubview:self.chaptersListView];
+        [[UIApplication sharedApplication].keyWindow addSubview:self];
 
-        [self addSubview:self.playerControlPanel];
-        [self addSubview:self.mpbView];
-        [self addSubview:self.chaptersListView];
-        
         [self addObserver];
     }
     
@@ -66,11 +66,10 @@
 //非全屏
 -(void)quitFromFullScreen
 {
-    if(!self.masterPlayer) return;
+//    if(!self.masterPlayer) return;
+    NSLog(@"ScreenWidth = %f  ScreenHeight = %f", ScreenWidth, ScreenHeight);
     
     WeakSelf;
-    [self removeFromSuperview];
-    
     [UIView animateWithDuration:0.3 animations:^{
         weakSelf.transform = CGAffineTransformIdentity;
         weakSelf.frame = CGRectMake(0, 0, ScreenWidth, ScreenWidth/1.875);
@@ -83,11 +82,10 @@
 //全屏
 -(void)rotatetoFullScreenWithInterfaceOrientation:(UIInterfaceOrientation )interfaceOrientation{
     
-    
+    //    if(!self.masterPlayer) return;
     self.transform = CGAffineTransformIdentity;
-    
+
     [UIView animateWithDuration:0.3 animations:^{
-        
         if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
             self.transform = CGAffineTransformMakeRotation(-M_PI_2);
         }
@@ -97,16 +95,17 @@
         else{
             NSLog(@"不用旋转");
         }
+        
+        self.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight); //0 0 375  667
+        self.fullScreenFlag = YES;
+
     } completion:^(BOOL finished) {
         
     }];
     
-    self.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeight); //0 0 375  667
     
-    self.fullScreenFlag = YES;
-    
-    [[UIApplication sharedApplication].keyWindow addSubview:self];
 }
+
 -(void)setFullScreenFlag:(BOOL)fullScreenFlag{
     
     _fullScreenFlag = fullScreenFlag;

@@ -33,41 +33,31 @@
 }
 
 -(void)setFullScreenFlag:(BOOL)fullScreenFlag{
-    
     _fullScreenFlag = fullScreenFlag;
     [self setControlPanelUISelector];
 }
 
 -(void)setControlPanelUISelector{
-    if (self.fullScreenFlag) {
-        self.quitFScreenBtn.hidden = NO;
-        self.videoCover.frame = CGRectMake(0, 0, self.height, self.width);
-        self.quitFScreenBtn.frame = CGRectMake(0, 10, PLYERBTNWIDTH, PLYERBTNWIDTH);
-        
-        self.loadingIV.frame = CGRectMake(self.height/2-PLYERBTNWIDTH/2, self.width/2-PLYERBTNWIDTH/2-15, PLYERBTNWIDTH, PLYERBTNWIDTH);
-        self.reloadLabel.frame = CGRectMake(self.height/2-130/2, self.width/2-PLYERBTNWIDTH/2+20, 130, PLYERBTNWIDTH);
-        
-        self.playBtn.frame = CGRectMake(self.height/2-PLYERBTNWIDTH/2, self.width/2-PLYERBTNWIDTH/2, PLYERBTNWIDTH, PLYERBTNWIDTH);
-        self.previousBtn.frame = CGRectMake(FSBTNFX, self.width/2-PLYERBTNWIDTH/2, PLYERBTNWIDTH, PLYERBTNWIDTH);
-        self.nextBtn.frame = CGRectMake(self.height-FSBTNFX-PLYERBTNWIDTH, self.width/2-PLYERBTNWIDTH/2, PLYERBTNWIDTH, PLYERBTNWIDTH);
-        
-        self.statusBar.frame = CGRectMake(0, 0, self.height, 20);
-        self.statusBar.hidden = YES;
-
-    } else {
-        self.quitFScreenBtn.hidden = YES;
-        self.videoCover.frame = CGRectMake(0, 0, self.width, self.height);
-        self.loadingIV.frame = CGRectMake(self.width/2-PLYERBTNWIDTH/2, self.height/2-PLYERBTNWIDTH/2-15, PLYERBTNWIDTH, PLYERBTNWIDTH);
-        self.reloadLabel.frame = CGRectMake(self.width/2-130/2, self.height/2-PLYERBTNWIDTH/2+20, 130, PLYERBTNWIDTH);
-
-        self.playBtn.frame = CGRectMake(self.width/2-PLYERBTNWIDTH/2, self.height/2-PLYERBTNWIDTH/2, PLYERBTNWIDTH, PLYERBTNWIDTH);
-        self.previousBtn.frame = CGRectMake(SBTNFX, self.height/2-PLYERBTNWIDTH/2, PLYERBTNWIDTH, PLYERBTNWIDTH);
-        self.nextBtn.frame = CGRectMake(self.width-SBTNFX-PLYERBTNWIDTH, self.height/2-PLYERBTNWIDTH/2, PLYERBTNWIDTH, PLYERBTNWIDTH);
-        
-        self.statusBar.frame = CGRectMake(0, 0, self.width, 20);
-        self.statusBar.hidden = NO;
-    }
     
+    self.quitFScreenBtn.hidden = YES;
+    self.videoCover.frame = CGRectMake(0, 0, self.width, self.height);
+    self.loadingIV.frame = CGRectMake(self.width/2-PLYERBTNWIDTH/2, self.height/2-PLYERBTNWIDTH/2-15, PLYERBTNWIDTH, PLYERBTNWIDTH);
+    self.reloadLabel.frame = CGRectMake(self.width/2-130/2, self.height/2-PLYERBTNWIDTH/2+20, 130, PLYERBTNWIDTH);
+    
+    self.playBtn.frame = CGRectMake(self.width/2-PLYERBTNWIDTH/2, self.height/2-PLYERBTNWIDTH/2, PLYERBTNWIDTH, PLYERBTNWIDTH);
+    self.previousBtn.frame = CGRectMake(SBTNFX, self.height/2-PLYERBTNWIDTH/2, PLYERBTNWIDTH, PLYERBTNWIDTH);
+    self.nextBtn.frame = CGRectMake(self.width-SBTNFX-PLYERBTNWIDTH, self.height/2-PLYERBTNWIDTH/2, PLYERBTNWIDTH, PLYERBTNWIDTH);
+    
+    self.statusBar.frame = CGRectMake(0, 0, self.width, 20);
+    
+    if (self.fullScreenFlag) {
+        self.statusBar.hidden = NO;
+        self.quitFScreenBtn.hidden = YES;
+    } else {
+        self.statusBar.hidden = NO;
+        self.quitFScreenBtn.hidden = NO;
+    }
+
 }
 
 -(void)setCoverStr:(NSString *)coverStr{
@@ -88,7 +78,7 @@
 -(UIButton *)playBtn{
     if (!_playBtn) {
         _playBtn = [UIButton new];
-        _playBtn.backgroundColor = [UIColor yellowColor];
+        _playBtn.backgroundColor = [UIColor clearColor];
         [_playBtn setImage:[UIImage imageNamed:@"c_pause_icon"] forState:UIControlStateNormal];
         [_playBtn addTarget:self action:@selector(playBtnTouchSelector) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -98,7 +88,7 @@
 -(UIButton *)previousBtn{
     if (!_previousBtn) {
         _previousBtn = [UIButton new];
-        _previousBtn.backgroundColor = [UIColor cyanColor];
+        _previousBtn.backgroundColor = [UIColor clearColor];
         [_previousBtn setImage:[UIImage imageNamed:@"c_previous_icon"] forState:UIControlStateNormal];
         [_previousBtn addTarget:self action:@selector(previousBtnTouchSelector) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -109,7 +99,7 @@
 -(UIButton *)nextBtn{
     if (!_nextBtn) {
         _nextBtn = [UIButton new];
-        _nextBtn.backgroundColor = [UIColor redColor];
+        _nextBtn.backgroundColor = [UIColor clearColor];
         [_nextBtn setImage:[UIImage imageNamed:@"c_next_icon"] forState:UIControlStateNormal];
         [_nextBtn addTarget:self action:@selector(nextBtnTouchSelector) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -122,7 +112,7 @@
         _videoCover = [UIImageView new];
         _videoCover.contentMode = UIViewContentModeScaleAspectFill;
         _videoCover.clipsToBounds = YES;
-        _videoCover.backgroundColor = [UIColor blackColor];
+        _videoCover.backgroundColor = [UIColor clearColor];
         [_videoCover setImage:[UIImage imageNamed:@"bb"]];
     }
     

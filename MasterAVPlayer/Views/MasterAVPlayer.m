@@ -23,17 +23,6 @@
         [self addSubview:self.mpbView];
         [self addSubview:self.chaptersListView];
         
-        testView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 30)];
-        testView.backgroundColor = [UIColor purpleColor];
-        //[self addSubview:testView];
-        
-        UILabel *testLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 30)];
-        testLabel.text = @"向上";
-        testLabel.textAlignment = NSTextAlignmentCenter;
-        testLabel.textColor = [UIColor whiteColor];
-        
-        [testView addSubview:testLabel];
-        
         [self.playerSuperView addSubview:self];
 
         [self addObserver];
@@ -79,10 +68,7 @@
 -(void)quitFromFullScreen
 {
 //    if(!self.masterPlayer) return;
-    NSLog(@"ScreenWidth = %f  ScreenHeight = %f", ScreenWidth, ScreenHeight);
     
-    testView.frame = CGRectMake(0, 0, 50, 30);
-
     [self removeFromSuperview];
     
     WeakSelf;
@@ -102,8 +88,6 @@
     
     //    if(!self.masterPlayer) return;
     
-    testView.frame = CGRectMake(0, 0, 50, 30);
-
     [self removeFromSuperview];
     
     self.transform = CGAffineTransformIdentity;
@@ -159,7 +143,7 @@
         self.mplayerLayer.frame = CGRectMake(0, 0, self.width, self.height);
         self.playerControlPanel.frame = CGRectMake(0, 0, self.width, self.height);
     }
-        
+    
     self.mpbView.fullScreenFlag = self.fullScreenFlag;
     self.chaptersListView.fullScreenFlag = self.fullScreenFlag;
     self.playerControlPanel.fullScreenFlag = self.fullScreenFlag;

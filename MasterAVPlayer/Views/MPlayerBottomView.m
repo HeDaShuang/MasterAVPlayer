@@ -138,10 +138,7 @@
     }
     
     _playdurationStr = playdurationStr;
-    //测试
-    NSString *playdurationTimeStr = @"10:10";
-    self.currentTimeLabel.text = playdurationTimeStr;
-
+    self.currentTimeLabel.text = _playdurationStr;
 }
 
 -(void)setDurationStr:(NSString *)durationStr{

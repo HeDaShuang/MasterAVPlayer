@@ -132,8 +132,7 @@
         self.mpbView.frame = CGRectMake(0, self.width-50, self.height, 50);
         self.mplayerLayer.frame = CGRectMake(0, 0, self.height, self.width);
         self.playerControlPanel.frame = CGRectMake(0, 0, self.height, self.width);
- 
-
+        
     } else {
         self.chaptersListView.hidden = YES;
         
@@ -141,6 +140,10 @@
         self.mplayerLayer.frame = CGRectMake(0, 0, self.width, self.height);
         self.playerControlPanel.frame = CGRectMake(0, 0, self.width, self.height);
     }
+    
+    //for test data
+    self.mpbView.durationStr = @"00:00:50";
+    self.mpbView.playdurationStr = @"00:00:10";
     
     self.mpbView.fullScreenFlag = self.fullScreenFlag;
     self.chaptersListView.fullScreenFlag = self.fullScreenFlag;

@@ -43,7 +43,6 @@
     return _progressView;
 }
 
-
 -(UISlider *)playSlider{
     if (!_playSlider) {
         _playSlider = [UISlider new];
@@ -98,7 +97,6 @@
         _selectCapBtn.titleLabel.font = [UIFont systemFontOfSize:11];
         [_selectCapBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_selectCapBtn addTarget:self action:@selector(selectCapBtnTouch) forControlEvents:UIControlEventTouchUpInside];
-
     }
     
     return _selectCapBtn;
@@ -119,8 +117,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        self.backgroundColor = [UIColor blackColor];
-        self.alpha = 0.5;
+        self.backgroundColor = [UIColor clearColor];
     }
     
     return self;

@@ -36,10 +36,8 @@
 }
 
 -(void)deviceOritentationChangeSelector{
-//    if (self.masterPlayer==nil){
-//        return;
-//    }
-    
+    //    if(!self.masterPlayer) return;
+
     UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
     UIInterfaceOrientation interfaceOrientation = (UIInterfaceOrientation)orientation;
     switch (interfaceOrientation) {

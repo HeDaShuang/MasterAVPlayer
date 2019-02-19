@@ -16,6 +16,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+//播放状态
 @protocol playerPanelDelegate <NSObject>
 
 //播放按钮代理事件
@@ -70,14 +71,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, weak) id<playerPanelDelegate> delegate;
 
+//播放器状态
+@property(nonatomic, assign) MPlyerStatus mplyerstatus;
+
 //显示加载中
 -(void)showPlayerLoading;
 
 //显示加载失败
 -(void)showPlayerLoadFailed;
 
+//停止加载动画
+-(void)stopLoadingAnimat;
+
 //显示和隐藏播放相关控件
 -(void)hidePanelWidgetsBool:(BOOL) hideFlag;
+
+-(void)hideLoadingWidgets:(BOOL) hideFlag;
 
 @end
 

@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol mpplayerBottomDelegate <NSObject>
 
--(void)fullScreenBtnTouchSelector:(BOOL) fullSFlag; //全屏和退出全屏按钮事件
+-(void)fullScreenBtnTouchSelector; //全屏和退出全屏按钮事件
 
 -(void)selectCapBtnTouchSelector;                   //选集按钮事件
 
@@ -68,9 +68,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, weak) id<mpplayerBottomDelegate> delegate;
 
--(void)show;
+//显示播放器底部进度显示控件
+-(void)showMPBottomView;
 
--(void)hide;
+//隐藏播放器底部进度显示控件
+-(void)hideMPBottomView;
 
 @end
 

@@ -37,6 +37,33 @@
     [self setControlPanelUISelector];
 }
 
+-(void)setMplyerstatus:(MPlyerStatus)mplyerstatus{
+    _mplyerstatus = mplyerstatus;
+    if (self.mplyerstatus == MPlyerStatusFailed) {
+        [self showPlayerLoading];
+    }
+    else if (self.mplyerstatus == MPlyerStatusBuffering){
+        [self showPlayerLoading];
+    }
+    else if (self.mplyerstatus == MPlyerStatusReadytoplay){
+        [self stopLoadingAnimat];
+        [self hideLoadingWidgets:YES];
+    }
+    else if (self.mplyerstatus == MPlyerStatusPlaying){
+        [self stopLoadingAnimat];
+    }
+    else if (self.mplyerstatus == MPlyerStatusStopped){
+        [self stopLoadingAnimat];
+    }
+    else {
+        //播放完成
+        [self stopLoadingAnimat];
+        [self hideLoadingWidgets:YES];
+        [_playBtn setImage:[UIImage imageNamed:@"c_pause_icon"] forState:UIControlStateNormal];
+    }
+
+}
+
 -(void)setControlPanelUISelector{
     
     self.quitFScreenBtn.hidden = YES;
@@ -218,6 +245,7 @@
 
     self.loadingIV.hidden = NO;
     self.reloadLabel.hidden = YES;
+
     //显示加载中
     if (self.fullScreenFlag) {
         self.loadingIV.frame = CGRectMake(self.height/2-PLYERBTNWIDTH/2, self.width/2-PLYERBTNWIDTH/2, PLYERBTNWIDTH, PLYERBTNWIDTH);
@@ -251,15 +279,10 @@
 
 //停止加载动画
 -(void)stopLoadingAnimat{
-    self.loadingIV.hidden = YES;
-    self.reloadLabel.hidden = YES;
+    [self hidePanelWidgetsBool:YES];
     
     [self.loadingIV.layer removeAllAnimations];
     [self invalidateTimer];
-    
-//    if (self.mplyerstatus == MPlyerStatusReadytoplay) {
-//        [self masterplayerPlay];
-//    }
 }
 
 -(void)loadingTimerSelector{
@@ -285,6 +308,17 @@
     loadingTimer = nil;
 }
 
+-(void)hideLoadingWidgets:(BOOL) hideFlag{
+    if (hideFlag) {
+        self.loadingIV.hidden = YES;
+        self.reloadLabel.hidden = YES;
+
+    } else {
+        self.loadingIV.hidden = NO;
+        self.reloadLabel.hidden = NO;
+
+    }
+}
 
 
 

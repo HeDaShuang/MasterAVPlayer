@@ -215,13 +215,13 @@
 }
 
 
--(void)show{
+-(void)showMPBottomView{
     [UIView animateWithDuration:0.2 animations:^{
         self.alpha = 1;
     }];
 }
 
--(void)hide{
+-(void)hideMPBottomView{
     [UIView animateWithDuration:0.2 animations:^{
         self.alpha = 0;
     }];
@@ -229,8 +229,8 @@
 
 -(void)fullScreenBtnTouch{
     
-    if ([_delegate respondsToSelector:@selector(fullScreenBtnTouchSelector:)]) {
-        [_delegate fullScreenBtnTouchSelector:self.fullScreenFlag];
+    if ([_delegate respondsToSelector:@selector(fullScreenBtnTouchSelector)]) {
+        [_delegate fullScreenBtnTouchSelector];
     }
     
 }

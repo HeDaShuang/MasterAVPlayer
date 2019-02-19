@@ -15,11 +15,13 @@
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         
-        self.playerControlPanel = [[MPlayerControlPanel alloc] init];
+        self.playerCPanel = [[MPlayerControlPanel alloc] init];
         self.mpbView = [[MPlayerBottomView alloc] init];
+        self.mpbView.delegate = self;
+        
         self.chaptersListView = [[ChaptersListView alloc] init];
 
-        [self addSubview:self.playerControlPanel];
+        [self addSubview:self.playerCPanel];
         [self addSubview:self.mpbView];
         [self addSubview:self.chaptersListView];
         
@@ -131,14 +133,14 @@
         self.chaptersListView.frame = CGRectMake(0, self.width, self.height, 90);
         self.mpbView.frame = CGRectMake(0, self.width-50, self.height, 50);
         self.mplayerLayer.frame = CGRectMake(0, 0, self.height, self.width);
-        self.playerControlPanel.frame = CGRectMake(0, 0, self.height, self.width);
+        self.playerCPanel.frame = CGRectMake(0, 0, self.height, self.width);
         
     } else {
         self.chaptersListView.hidden = YES;
         
         self.mpbView.frame = CGRectMake(0, self.height-40, self.width, 40);
         self.mplayerLayer.frame = CGRectMake(0, 0, self.width, self.height);
-        self.playerControlPanel.frame = CGRectMake(0, 0, self.width, self.height);
+        self.playerCPanel.frame = CGRectMake(0, 0, self.width, self.height);
     }
     
     //for test data
@@ -147,7 +149,7 @@
     
     self.mpbView.fullScreenFlag = self.fullScreenFlag;
     self.chaptersListView.fullScreenFlag = self.fullScreenFlag;
-    self.playerControlPanel.fullScreenFlag = self.fullScreenFlag;
+    self.playerCPanel.fullScreenFlag = self.fullScreenFlag;
 }
 
 -(void)setTestVideoArr:(NSMutableArray *)testVideoArr{
@@ -167,7 +169,6 @@
     
     _playURLStr = playURLStr;
     self.currentItem = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:self.playURLStr]];
-    
     [self loadORRloadPlayer];
 }
 
@@ -182,7 +183,6 @@
         [self.masterPlayer replaceCurrentItemWithPlayerItem:nil];
         [self.masterPlayer replaceCurrentItemWithPlayerItem:self.currentItem];
     }
-    
     
     if (self.fullScreenFlag) {
         self.mplayerLayer.frame = CGRectMake(0, 0, self.height, self.width);
@@ -218,7 +218,116 @@
     self.mplyerstatus = MPlyerStatusFailed;
 }
 
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+{
+    if (context == MasterPlayerStatusObservationContext) {
+        if ([keyPath isEqualToString:@"status"]) {
+            AVPlayerStatus avplayerStatus = [[change objectForKey:NSKeyValueChangeNewKey] integerValue];
+            switch (avplayerStatus) {
+                case AVPlayerStatusUnknown:
+                {
+                    self.mplyerstatus = MPlyerStatusBuffering;
+                }
+                    break;
+                case AVPlayerStatusReadyToPlay:
+                {
+                    self.mplyerstatus = MPlyerStatusReadytoplay;
+                    
+                    //监听播放中
+                    //[self playingTimeObserverSelector];
+                }
+                    break;
+                case AVPlayerStatusFailed:
+                {
+                    NSError *error = [self.masterPlayer.currentItem error];
+                    if (error) {
+                        self.mplyerstatus = MPlyerStatusFailed;
+                    }
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+        else if ([keyPath isEqualToString:@"loadedTimeRanges"]){
+            // 计算缓冲进度
+//            NSTimeInterval timeInterval = [self availableDuration];
+//            CMTime duration             = self.currentItem.duration;
+//            CGFloat totalDuration       = CMTimeGetSeconds(duration);
+//            if (isnan(totalDuration)) {
+//                totalDuration = 0;
+//            }
+//
+//            [self.mpbView.progressView setProgress:timeInterval/totalDuration animated:NO];
+//            if (self.mplyerstatus == MPlyerStatusBuffering) {
+//                [self showLoading];
+//            }
+//            else{
+//                self.loadingIV.hidden = YES;
+//                self.reloadLabel.hidden = YES;
+//                self.mpsharePopView.hidden = YES;
+//            }
+        }
+        else if([keyPath isEqualToString:@"playbackBufferEmpty"]){
+            //缓冲区为空
+            if (self.currentItem.playbackBufferEmpty ) {
+                self.mplyerstatus = MPlyerStatusBuffering;
+//                [self bufferingCallback];
+            }
+        }
+        else if ([keyPath isEqualToString:@"playbackLikelyToKeepUp"]){
+            //缓冲区有足够的数据可以播放了
+            if (self.currentItem.playbackLikelyToKeepUp && self.mplyerstatus == MPlyerStatusBuffering) {
+                if (!(self.mplyerstatus==MPlyerStatusStopped||self.mplyerstatus==MPlyerStatusPasue)) {
+                    self.mplyerstatus = MPlyerStatusPlaying;
+                }
+            }
+        }
+        else {
+            NSLog(@"无效keypath");
+        }
+    }
+}
+
+-(void)setMplyerstatus:(MPlyerStatus)mplyerstatus{
+    _mplyerstatus = mplyerstatus;
+    self.playerCPanel.mplyerstatus = mplyerstatus;
+    
+    if (self.mplyerstatus == MPlyerStatusFailed) {
+        [self.masterPlayer play];
+    }
+    else if (self.mplyerstatus == MPlyerStatusBuffering){
+
+    }
+    else if (self.mplyerstatus == MPlyerStatusReadytoplay){
+
+    }
+    else if (self.mplyerstatus == MPlyerStatusPlaying){
+        //停止加载动画
+        //[self masterplayerPlay];
+    }
+    else if (self.mplyerstatus == MPlyerStatusStopped){
+    }
+    else {
+        //播放完成
+    }
+
+    
+}
 
 
+//mpplayerBottomDelegate
+-(void)fullScreenBtnTouchSelector{
+    if (self.fullScreenFlag) {
+        [self quitFromFullScreen];
+    } else {
+        [self rotatetoFullScreenWithInterfaceOrientation:UIInterfaceOrientationLandscapeRight];
+    }
+}
+
+-(void)selectCapBtnTouchSelector{
+    
+}
 
 @end

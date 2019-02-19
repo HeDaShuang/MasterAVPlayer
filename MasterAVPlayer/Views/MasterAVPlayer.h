@@ -14,15 +14,15 @@
 NS_ASSUME_NONNULL_BEGIN
 
 //播放状态
-typedef NS_ENUM(NSInteger, MPlyerStatus) {
-    MPlyerStatusFailed,       //失败
-    MPlyerStatusBuffering,    //缓冲中
-    MPlyerStatusReadytoplay,  //将要播放
-    MPlyerStatusPlaying,      //播放中
-    MPlyerStatusStopped,      //暂停播放
-    MPlyerStatusFinished,     //播放完成
-    MPlyerStatusPasue         //播放暂停
-};
+//typedef NS_ENUM(NSInteger, MPlyerStatus) {
+//    MPlyerStatusFailed,       //失败
+//    MPlyerStatusBuffering,    //缓冲中
+//    MPlyerStatusReadytoplay,  //将要播放
+//    MPlyerStatusPlaying,      //播放中
+//    MPlyerStatusStopped,      //暂停播放
+//    MPlyerStatusFinished,     //播放完成
+//    MPlyerStatusPasue         //播放暂停
+//};
 
 //手势操作的类型
 typedef NS_ENUM(NSUInteger,MPControlType) {
@@ -34,7 +34,7 @@ typedef NS_ENUM(NSUInteger,MPControlType) {
 
 static void * MasterPlayerStatusObservationContext = &MasterPlayerStatusObservationContext;
 
-@interface MasterAVPlayer : UIView
+@interface MasterAVPlayer : UIView<mpplayerBottomDelegate>
 
 @property(nonatomic, strong) UIView *playerSuperView;
 
@@ -60,7 +60,7 @@ static void * MasterPlayerStatusObservationContext = &MasterPlayerStatusObservat
 @property(nonatomic, copy) NSString *playURLStr;
 
 //播放器控制面板
-@property(nonatomic, strong) MPlayerControlPanel *playerControlPanel;
+@property(nonatomic, strong) MPlayerControlPanel *playerCPanel;
 
 //播放器底部操控视图
 @property(nonatomic, strong) MPlayerBottomView *mpbView;

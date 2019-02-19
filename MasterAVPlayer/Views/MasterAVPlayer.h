@@ -32,6 +32,8 @@ typedef NS_ENUM(NSUInteger,MPControlType) {
     MPControlTypeLight      //屏幕亮度调节操作
 };
 
+static void * MasterPlayerStatusObservationContext = &MasterPlayerStatusObservationContext;
+
 @interface MasterAVPlayer : UIView
 
 @property(nonatomic, strong) UIView *playerSuperView;
@@ -65,6 +67,9 @@ typedef NS_ENUM(NSUInteger,MPControlType) {
 
 //视频集列表
 @property(nonatomic, strong) ChaptersListView *chaptersListView;
+
+//测试视频数组数据
+@property(nonatomic, strong) NSMutableArray *testVideoArr;
 
 @end
 

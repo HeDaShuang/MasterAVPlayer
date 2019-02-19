@@ -150,6 +150,73 @@
     self.playerControlPanel.fullScreenFlag = self.fullScreenFlag;
 }
 
+-(void)setTestVideoArr:(NSMutableArray *)testVideoArr{
+    if (!testVideoArr) {
+        return;
+    }
+    
+    NSLog(@"%@", testVideoArr);
+    NSDictionary *dic = [testVideoArr objectAtIndex:0];
+    self.playURLStr = [NSString stringWithFormat:@"%@", dic[@"url"]];
+}
+
+-(void)setPlayURLStr:(NSString *)playURLStr{
+    if (!playURLStr) {
+        return;
+    }
+    
+    _playURLStr = playURLStr;
+    self.currentItem = [AVPlayerItem playerItemWithURL:[NSURL URLWithString:self.playURLStr]];
+    
+    [self loadORRloadPlayer];
+}
+
+-(void)loadORRloadPlayer{
+    if (!_masterPlayer) {
+        self.masterPlayer = [AVPlayer playerWithPlayerItem:self.currentItem];
+        self.masterPlayer.usesExternalPlaybackWhileExternalScreenIsActive = YES;
+        self.mplayerLayer = [AVPlayerLayer playerLayerWithPlayer:self.masterPlayer];
+        self.mplayerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+        [self.layer insertSublayer:self.mplayerLayer atIndex:0];
+    } else {
+        [self.masterPlayer replaceCurrentItemWithPlayerItem:nil];
+        [self.masterPlayer replaceCurrentItemWithPlayerItem:self.currentItem];
+    }
+    
+    
+    if (self.fullScreenFlag) {
+        self.mplayerLayer.frame = CGRectMake(0, 0, self.height, self.width);
+    }
+    else{
+        self.mplayerLayer.frame = CGRectMake(0, 0, self.width, self.height);
+    }
+}
+
+-(void)setCurrentItem:(AVPlayerItem *)currentItem{
+    if (!currentItem || (_currentItem == currentItem)) {
+        return;
+    }
+    
+    _currentItem = currentItem;
+    if (_currentItem) {
+        //这里导致不走dealloc
+        [_currentItem addObserver:self
+                       forKeyPath:@"status"
+                          options:NSKeyValueObservingOptionNew
+                          context:MasterPlayerStatusObservationContext];
+        [_currentItem addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionNew context:MasterPlayerStatusObservationContext];
+        // 缓冲区空了，需要等待数据
+        [_currentItem addObserver:self forKeyPath:@"playbackBufferEmpty" options: NSKeyValueObservingOptionNew context:MasterPlayerStatusObservationContext];
+        // 缓冲区有足够数据可以播放了
+        [_currentItem addObserver:self forKeyPath:@"playbackLikelyToKeepUp" options: NSKeyValueObservingOptionNew context:MasterPlayerStatusObservationContext];
+        // 添加视频播放结束通知
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(playDidFinished) name:AVPlayerItemDidPlayToEndTimeNotification object:_currentItem];
+    }
+}
+
+-(void)playDidFinished{
+    self.mplyerstatus = MPlyerStatusFailed;
+}
 
 
 

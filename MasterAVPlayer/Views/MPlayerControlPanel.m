@@ -64,7 +64,6 @@
     _coverStr = coverStr;
 }
 
-
 -(UIButton *)quitFScreenBtn{
     if (!_quitFScreenBtn) {
         _quitFScreenBtn = [UIButton new];

@@ -168,4 +168,124 @@
     }
 }
 
+//显示和隐藏播放相关控件
+-(void)hidePanelWidgetsBool:(BOOL) hideFlag{
+    
+    WeakSelf;
+    
+    if (hideFlag) {
+        [UIView animateWithDuration:0.2 animations:^{
+            weakSelf.previousBtn.alpha = 0;
+            weakSelf.playBtn.alpha = 0;
+            weakSelf.nextBtn.alpha = 0;
+            weakSelf.quitFScreenBtn.alpha = 0;
+        }];
+    } else {
+        [UIView animateWithDuration:0.2 animations:^{
+            weakSelf.previousBtn.alpha = 1;
+            weakSelf.playBtn.alpha = 1;
+            weakSelf.nextBtn.alpha = 1;
+            weakSelf.quitFScreenBtn.alpha = 1;
+            
+            weakSelf.loadingIV.hidden = YES;
+            weakSelf.reloadLabel.hidden = YES;
+        }];
+    }
+}
+
+-(void)showPlayerLoadFailed{
+    //显示加载中
+    self.reloadLabel.hidden = NO;
+    self.loadingIV.hidden = NO;
+    
+    if (self.fullScreenFlag) {
+        self.loadingIV.frame = CGRectMake(self.height/2-PLYERBTNWIDTH/2, self.width/2-PLYERBTNWIDTH/2-15, PLYERBTNWIDTH, PLYERBTNWIDTH);
+        self.reloadLabel.frame = CGRectMake(self.height/2-130/2, self.width/2-PLYERBTNWIDTH/2+20, 130, PLYERBTNWIDTH);
+        
+    } else {
+        self.loadingIV.frame = CGRectMake(self.width/2-PLYERBTNWIDTH/2, self.height/2-PLYERBTNWIDTH/2-15, PLYERBTNWIDTH, PLYERBTNWIDTH);
+        self.reloadLabel.frame = CGRectMake(self.width/2-130/2, self.height/2-PLYERBTNWIDTH/2+20, 130, PLYERBTNWIDTH);
+    }
+    
+    //隐藏其他控件
+    [self hidePanelWidgetsBool:YES];
+}
+
+-(void)showPlayerLoading{
+    
+    //隐藏其他控件
+    [self hidePanelWidgetsBool:YES];
+
+    self.loadingIV.hidden = NO;
+    self.reloadLabel.hidden = YES;
+    //显示加载中
+    if (self.fullScreenFlag) {
+        self.loadingIV.frame = CGRectMake(self.height/2-PLYERBTNWIDTH/2, self.width/2-PLYERBTNWIDTH/2, PLYERBTNWIDTH, PLYERBTNWIDTH);
+    } else {
+        self.loadingIV.frame = CGRectMake(self.width/2-PLYERBTNWIDTH/2, self.height/2-PLYERBTNWIDTH/2, PLYERBTNWIDTH, PLYERBTNWIDTH);
+    }
+    
+    //加载动画
+    [self startLoadingAnimat];
+}
+
+//开始加载动画
+-(void)startLoadingAnimat{
+    
+    [self invalidateTimer];
+    [self.loadingIV.layer removeAllAnimations];
+    
+    loadingTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(loadingTimerSelector) userInfo:nil repeats:YES];
+    [loadingTimer setFireDate:[NSDate distantPast]];
+    
+    WeakSelf;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        CABasicAnimation *rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+        rotationAnimation.toValue = @(2*M_PI);
+        rotationAnimation.duration = 1;
+        rotationAnimation.removedOnCompletion = false;
+        rotationAnimation.repeatCount = MAXFLOAT;
+        [weakSelf.loadingIV.layer addAnimation:rotationAnimation forKey:nil];
+    }) ;
+}
+
+//停止加载动画
+-(void)stopLoadingAnimat{
+    self.loadingIV.hidden = YES;
+    self.reloadLabel.hidden = YES;
+    
+    [self.loadingIV.layer removeAllAnimations];
+    [self invalidateTimer];
+    
+//    if (self.mplyerstatus == MPlyerStatusReadytoplay) {
+//        [self masterplayerPlay];
+//    }
+}
+
+-(void)loadingTimerSelector{
+    ++loadingTCount;
+    
+    if (loadingTCount > LOADTCOUNT) {
+        [self stopLoadingAnimat];
+        [self invalidateTimer];
+        WeakSelf;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf showPlayerLoadFailed];
+        });
+    }
+}
+
+-(void)invalidateTimer{
+//    timerCount = 0;
+//    [tapGRTimer invalidate];
+//    tapGRTimer = nil;
+    
+    loadingTCount = 0;
+    [loadingTimer invalidate];
+    loadingTimer = nil;
+}
+
+
+
+
 @end

@@ -12,6 +12,8 @@
 #define FSBTNFX 55.0f         //课程集按钮全屏 fullscreen switch btn fx
 #define SBTNFX 15.0f          //课程集按钮非全屏 fx
 
+#define LOADTCOUNT 5         //加载动画最长时间
+
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol playerPanelDelegate <NSObject>
@@ -31,6 +33,11 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface MPlayerControlPanel : UIView
+{
+    NSTimer *loadingTimer;  //加载指示器动画定时器
+    
+    NSInteger loadingTCount;
+}
 
 //全屏 YES
 @property(nonatomic, assign) BOOL fullScreenFlag;
@@ -62,6 +69,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong) UIView *statusBar;
 
 @property(nonatomic, weak) id<playerPanelDelegate> delegate;
+
+//显示加载中
+-(void)showPlayerLoading;
+
+//显示加载失败
+-(void)showPlayerLoadFailed;
+
+//显示和隐藏播放相关控件
+-(void)hidePanelWidgetsBool:(BOOL) hideFlag;
 
 @end
 

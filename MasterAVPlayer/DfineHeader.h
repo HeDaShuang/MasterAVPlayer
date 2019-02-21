@@ -21,6 +21,7 @@
 #define ScreenWidth [UIScreen mainScreen].bounds.size.width
 #define ScreenHeight [UIScreen mainScreen].bounds.size.height
 
+//播放器状态
 typedef NS_ENUM(NSInteger,MPlyerStatus){
     MPlyerStatusFailed,       //失败
     MPlyerStatusBuffering,    //缓冲中

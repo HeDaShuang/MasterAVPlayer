@@ -48,6 +48,7 @@
     else if (self.mplyerstatus == MPlyerStatusReadytoplay){
         [self stopLoadingAnimat];
         [self hideLoadingWidgets:YES];
+        self.videoCover.hidden = YES;
     }
     else if (self.mplyerstatus == MPlyerStatusPlaying){
         [self stopLoadingAnimat];

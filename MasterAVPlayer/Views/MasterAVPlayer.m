@@ -292,6 +292,9 @@
 
 -(void)setMplyerstatus:(MPlyerStatus)mplyerstatus{
     _mplyerstatus = mplyerstatus;
+    
+    NSLog(@"_mplyerstatus = %ld", (long)_mplyerstatus);
+    
     self.playerCPanel.mplyerstatus = mplyerstatus;
     
     if (self.mplyerstatus == MPlyerStatusFailed) {
@@ -301,7 +304,7 @@
 
     }
     else if (self.mplyerstatus == MPlyerStatusReadytoplay){
-
+        [self.masterPlayer play];
     }
     else if (self.mplyerstatus == MPlyerStatusPlaying){
         //停止加载动画

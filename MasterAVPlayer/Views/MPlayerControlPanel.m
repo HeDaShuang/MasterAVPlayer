@@ -13,7 +13,7 @@
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor purpleColor];
+        self.backgroundColor = [UIColor clearColor];
         self.alpha = 1;
         
         self.coverStr = @"testcover1";

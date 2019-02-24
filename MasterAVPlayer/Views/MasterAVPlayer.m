@@ -179,6 +179,7 @@
         self.mplayerLayer = [AVPlayerLayer playerLayerWithPlayer:self.masterPlayer];
         self.mplayerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
         [self.layer insertSublayer:self.mplayerLayer atIndex:0];
+        
     } else {
         [self.masterPlayer replaceCurrentItemWithPlayerItem:nil];
         [self.masterPlayer replaceCurrentItemWithPlayerItem:self.currentItem];

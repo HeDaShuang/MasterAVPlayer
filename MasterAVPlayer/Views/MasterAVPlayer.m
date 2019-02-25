@@ -15,6 +15,8 @@
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         
+        showflag = YES;      //默认显示播放器操作控件
+
         self.playerCPanel = [[MPlayerControlPanel alloc] init];
         self.mpbView = [[MPlayerBottomView alloc] init];
         self.mpbView.delegate = self;
@@ -28,10 +30,29 @@
         [self.playerSuperView addSubview:self];
 
         [self addObserver];
+        
+        //添加点击手势
+        UITapGestureRecognizer *tapGRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGRSelector)];
+        [self addGestureRecognizer:tapGRecognizer];
+
     }
     
     return self;
 }
+
+-(void)tapGRSelector{
+    NSLog(@"tapGRSelector");
+    if (showflag) {
+        [self.playerCPanel hidePanelWidgetsBool:YES];
+        self.mpbView.hidden = YES;
+        showflag = NO;
+    } else {
+        [self.playerCPanel hidePanelWidgetsBool:NO];
+        self.mpbView.hidden = NO;
+        showflag = YES;
+    }
+}
+
 
 -(void)addObserver{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOritentationChangeSelector) name:UIDeviceOrientationDidChangeNotification object:nil];

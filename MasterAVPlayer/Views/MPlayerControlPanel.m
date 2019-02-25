@@ -27,10 +27,12 @@
         [self addSubview:self.reloadLabel];
         [self addSubview:self.loadingIV];
         [self addSubview:self.statusBar];
+        
     }
     
     return self;
 }
+
 
 -(void)setFullScreenFlag:(BOOL)fullScreenFlag{
     _fullScreenFlag = fullScreenFlag;

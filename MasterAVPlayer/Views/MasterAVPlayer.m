@@ -43,16 +43,40 @@
 -(void)tapGRSelector{
     NSLog(@"tapGRSelector");
     if (showflag) {
-        [self.playerCPanel hidePanelWidgetsBool:YES];
-        self.mpbView.hidden = YES;
-        showflag = NO;
+        [self hideplayerWidgets];
     } else {
-        [self.playerCPanel hidePanelWidgetsBool:NO];
-        self.mpbView.hidden = NO;
-        showflag = YES;
+        
+        [self showplayerWidgets];
+    }
+    
+    [self invalidateTimer];
+
+    if (self.playflag) {
+        //播放中TAPTCOUNT秒后自动隐藏控件
+        tapGRTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(tapGRTimerSelector) userInfo:nil repeats:YES];
+        [tapGRTimer setFireDate:[NSDate distantPast]];
     }
 }
 
+-(void)hideplayerWidgets{
+    [self.playerCPanel hidePanelWidgetsBool:YES];
+    self.mpbView.hidden = YES;
+    showflag = NO;
+}
+
+-(void)showplayerWidgets{
+    [self.playerCPanel hidePanelWidgetsBool:NO];
+    self.mpbView.hidden = NO;
+    showflag = YES;
+
+}
+
+-(void)tapGRTimerSelector{
+    ++timerCount;
+    if (timerCount > TAPTCOUNT) {
+        [self hideplayerWidgets];
+    }
+}
 
 -(void)addObserver{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOritentationChangeSelector) name:UIDeviceOrientationDidChangeNotification object:nil];
@@ -353,6 +377,13 @@
 
 -(void)selectCapBtnTouchSelector{
     
+}
+
+-(void)invalidateTimer
+{
+    timerCount = 0;
+    [tapGRTimer invalidate];
+    tapGRTimer = nil;
 }
 
 @end

@@ -11,6 +11,8 @@
 #import "MPlayerControlPanel.h"
 #import "ChaptersListView.h"
 
+#define TAPTCOUNT 4           //点击播放器空白处定时时间
+
 NS_ASSUME_NONNULL_BEGIN
 
 //手势操作的类型
@@ -25,8 +27,16 @@ static void * MasterPlayerStatusObservationContext = &MasterPlayerStatusObservat
 
 @interface MasterAVPlayer : UIView<mpplayerBottomDelegate>
 {
-    BOOL showflag;   //是否显示控件标志
+    BOOL showflag;         //是否显示控件标志
+    
+    NSTimer *tapGRTimer;   //播放中点击屏幕定时器  若timerCount秒后没有点击播放或者切换集按钮  则隐藏控件
+    
+    NSInteger timerCount;
 }
+
+//是否点击了播放按钮标志 YES表示点击了播放  NO表示暂停或未点击播放（默认）
+@property(nonatomic, assign) BOOL playflag;
+
 @property(nonatomic, strong) UIView *playerSuperView;
 
 //播放器

@@ -16,10 +16,17 @@
         self.backgroundColor = [UIColor clearColor];
         
         showflag = YES;      //默认显示播放器操作控件
+        self.playflag = NO;  //默认未点击播放按钮
 
         self.playerCPanel = [[MPlayerControlPanel alloc] init];
         self.mpbView = [[MPlayerBottomView alloc] init];
         self.mpbView.delegate = self;
+        [self.mpbView.playSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+        [self.mpbView.playSlider addTarget:self action:@selector(sliderTouchEnded:) forControlEvents:UIControlEventTouchUpInside];
+        UITapGestureRecognizer *tapSlider = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(actionTapGesture:)];
+        tapSlider.delegate = self;
+        [self.mpbView.playSlider addGestureRecognizer:tapSlider];
+
         
         self.chaptersListView = [[ChaptersListView alloc] init];
 
@@ -386,4 +393,36 @@
     tapGRTimer = nil;
 }
 
+
+-(void)sliderValueChanged:(UISlider *)slider{
+    self.dragingSliderFlag = YES;
+}
+
+-(void)sliderTouchEnded:(UISlider *)slider{
+    self.dragingSliderFlag = NO;
+    
+    CGFloat total = (CGFloat)self.currentItem.duration.value/self.currentItem.duration.timescale;
+    NSInteger slideSeconds = floor(total*slider.value);
+    
+    [self sliderValuechageplay:slideSeconds];
+}
+
+- (void)actionTapGesture:(UITapGestureRecognizer *)sender {
+    CGPoint touchLocation = [sender locationInView:self.mpbView.playSlider ];
+    CGFloat value = (self.mpbView.playSlider.maximumValue - self.mpbView.playSlider.minimumValue) * (touchLocation.x/self.mpbView.playSlider.frame.size.width);
+    
+    [self.mpbView.playSlider  setValue:value animated:YES];
+    
+    CGFloat total = (CGFloat)self.currentItem.duration.value/self.currentItem.duration.timescale;
+    NSInteger slideSeconds = floor(total*self.mpbView.playSlider.value);
+    
+    [self sliderValuechageplay:slideSeconds];
+}
+
+-(void)sliderValuechageplay:(NSInteger) slideSeconds{
+    [self.masterPlayer seekToTime:CMTimeMakeWithSeconds(slideSeconds, _currentItem.currentTime.timescale)];
+    if (self.masterPlayer.rate != 1.f) {
+        //[self masterplayerPlay];
+    }
+}
 @end

@@ -22,9 +22,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MPlayerBottomView : UIView
 {
     CGFloat fw;
+    
     CGFloat fh;
     
     CGFloat timeshowSepWidth;
+    
     CGFloat timeLabelWidth;
 
     NSString *testdurationTimeStr;

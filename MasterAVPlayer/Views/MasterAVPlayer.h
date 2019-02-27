@@ -37,6 +37,9 @@ static void * MasterPlayerStatusObservationContext = &MasterPlayerStatusObservat
 //是否点击了播放按钮标志 YES表示点击了播放  NO表示暂停或未点击播放（默认）
 @property(nonatomic, assign) BOOL playflag;
 
+//是否在拖动滑竿
+@property (nonatomic, assign) BOOL dragingSliderFlag;
+
 @property(nonatomic, strong) UIView *playerSuperView;
 
 //播放器

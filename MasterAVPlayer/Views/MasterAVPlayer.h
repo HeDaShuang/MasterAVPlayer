@@ -25,7 +25,7 @@ typedef NS_ENUM(NSUInteger,MPControlType) {
 
 static void * MasterPlayerStatusObservationContext = &MasterPlayerStatusObservationContext;
 
-@interface MasterAVPlayer : UIView<mpplayerBottomDelegate>
+@interface MasterAVPlayer : UIView<mpplayerBottomDelegate,UIGestureRecognizerDelegate>
 {
     BOOL showflag;         //是否显示控件标志
     

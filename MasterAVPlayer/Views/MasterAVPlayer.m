@@ -25,6 +25,8 @@
         [self.mpbView.playSlider addTarget:self action:@selector(sliderTouchEnded:) forControlEvents:UIControlEventTouchUpInside];
         UITapGestureRecognizer *tapSlider = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(actionTapGesture:)];
         tapSlider.delegate = self;
+        
+        
         [self.mpbView.playSlider addGestureRecognizer:tapSlider];
 
         
@@ -91,7 +93,6 @@
 
 -(void)deviceOritentationChangeSelector{
     //    if(!self.masterPlayer) return;
-
     UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
     UIInterfaceOrientation interfaceOrientation = (UIInterfaceOrientation)orientation;
     switch (interfaceOrientation) {
@@ -423,4 +424,40 @@
         //[self masterplayerPlay];
     }
 }
+
+//获取视频长度
+-(double)videoDuration{
+    AVPlayerItem *playerItem = self.masterPlayer.currentItem;
+    if (playerItem.status == AVPlayerItemStatusReadyToPlay) {
+        return CMTimeGetSeconds([[playerItem asset] duration]);
+    }
+    else
+        return 0.f;
+}
+
+//获取视频当前播放的时间
+- (double)videocurrentTime{
+    if (self.masterPlayer) {
+        return CMTimeGetSeconds([self.masterPlayer currentTime]);
+    }else{
+        return 0.0;
+    }
+}
+
+//设置当前播放时间
+-(void)setVideoCurrentTime:(double) time{
+    WeakSelf;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf.masterPlayer seekToTime:CMTimeMakeWithSeconds(time, weakSelf.currentItem.currentTime.timescale) completionHandler:^(BOOL finished) {
+        }];
+    });
+}
+
+
+
+
+
+
+
+
 @end

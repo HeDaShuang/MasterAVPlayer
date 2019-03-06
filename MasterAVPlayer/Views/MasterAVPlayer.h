@@ -75,6 +75,12 @@ static void * MasterPlayerStatusObservationContext = &MasterPlayerStatusObservat
 //测试视频数组数据
 @property(nonatomic, strong) NSMutableArray *testVideoArr;
 
+//播放中的监听者
+@property(nonatomic, strong) __nullable id playingTimeObserver;
+
+//跳到time时间播放
+@property(nonatomic, assign) double  seekTime;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -288,7 +288,8 @@
                     self.mplyerstatus = MPlyerStatusReadytoplay;
                     
                     //监听播放中
-                    //[self playingTimeObserverSelector];
+                    [self playingTimeObserverSelector];
+                    [self.playerCPanel stopLoadingAnimat];
                 }
                     break;
                 case AVPlayerStatusFailed:
@@ -343,6 +344,62 @@
         }
     }
 }
+
+//播放中的时间监听
+-(void)playingTimeObserverSelector{
+    CMTime playerDuration = [self playerItemDuration];
+    //若获取到的播放时间无效则返回  否则修改播放时长
+    if (CMTIME_IS_INVALID(playerDuration)) {
+        return;
+    }
+    
+    WeakSelf;
+    self.playingTimeObserver = [weakSelf.masterPlayer addPeriodicTimeObserverForInterval:CMTimeMakeWithSeconds(1.0, NSEC_PER_SEC) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+        CMTime playerDuration = [weakSelf playerItemDuration];
+        if (CMTIME_IS_INVALID(playerDuration)) {
+            weakSelf.mpbView.playSlider.minimumValue = 0.0;
+            return;
+        }
+        
+        double duration = CMTimeGetSeconds(playerDuration);
+        if (isnan(duration)) {
+            duration = 0;
+        }
+        
+        if (isfinite(duration)) {
+            
+            double nowTime = CMTimeGetSeconds([weakSelf.masterPlayer currentTime]);
+
+            self.seekTime = nowTime;
+            
+            if (nowTime > duration) {
+                nowTime = duration;
+            }
+            
+            NSString *nowTimeStr = [NSString stringWithFormat:@"%.f", nowTime];
+            weakSelf.mpbView.playdurationStr = nowTimeStr;
+            
+            if (!weakSelf.dragingSliderFlag) {
+                [weakSelf.mpbView.playSlider setValue:nowTime/duration];
+            }
+            
+        }
+        
+        
+        
+    }];
+    
+}
+
+-(CMTime)playerItemDuration{
+    AVPlayerItem *playerItem = _currentItem;
+    if (playerItem.status == AVPlayerItemStatusReadyToPlay) {
+        return ([playerItem duration]);
+    }
+    
+    return (kCMTimeInvalid);
+}
+
 
 -(void)setMplyerstatus:(MPlyerStatus)mplyerstatus{
     _mplyerstatus = mplyerstatus;

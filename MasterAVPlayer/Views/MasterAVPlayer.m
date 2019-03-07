@@ -139,12 +139,11 @@
 //全屏
 -(void)rotatetoFullScreenWithInterfaceOrientation:(UIInterfaceOrientation )interfaceOrientation{
     
-    //    if(!self.masterPlayer) return;
+    if(!self.masterPlayer) return;
     
     [self removeFromSuperview];
     
     self.transform = CGAffineTransformIdentity;
-
 
     [UIView animateWithDuration:0.3 animations:^{
         if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
@@ -157,7 +156,6 @@
             NSLog(@"不用旋转");
         }
         
-
     } completion:^(BOOL finished) {
         
     }];
@@ -307,28 +305,27 @@
         }
         else if ([keyPath isEqualToString:@"loadedTimeRanges"]){
             // 计算缓冲进度
-//            NSTimeInterval timeInterval = [self availableDuration];
-//            CMTime duration             = self.currentItem.duration;
-//            CGFloat totalDuration       = CMTimeGetSeconds(duration);
-//            if (isnan(totalDuration)) {
-//                totalDuration = 0;
-//            }
-//
-//            [self.mpbView.progressView setProgress:timeInterval/totalDuration animated:NO];
-//            if (self.mplyerstatus == MPlyerStatusBuffering) {
-//                [self showLoading];
-//            }
-//            else{
-//                self.loadingIV.hidden = YES;
-//                self.reloadLabel.hidden = YES;
-//                self.mpsharePopView.hidden = YES;
-//            }
+            NSTimeInterval timeInterval = [self availableDuration];
+            CMTime duration             = self.currentItem.duration;
+            CGFloat totalDuration       = CMTimeGetSeconds(duration);
+            if (isnan(totalDuration)) {
+                totalDuration = 0;
+            }
+
+            [self.mpbView.progressView setProgress:timeInterval/totalDuration animated:NO];
+            if (self.mplyerstatus == MPlyerStatusBuffering) {
+                [self.playerCPanel showPlayerLoading];
+            }
+            else{
+                [self.playerCPanel hideLoadingWidgets:YES];
+            }
+            
         }
         else if([keyPath isEqualToString:@"playbackBufferEmpty"]){
             //缓冲区为空
             if (self.currentItem.playbackBufferEmpty ) {
                 self.mplyerstatus = MPlyerStatusBuffering;
-//                [self bufferingCallback];
+                [self bufferingCallback];
             }
         }
         else if ([keyPath isEqualToString:@"playbackLikelyToKeepUp"]){
@@ -390,6 +387,27 @@
     }];
     
 }
+//计算缓冲进度
+-(NSTimeInterval)availableDuration{
+    NSArray *loadedTimeRanges = [_currentItem loadedTimeRanges];
+    CMTimeRange timeRange = [loadedTimeRanges.firstObject CMTimeRangeValue];//获取缓冲区域
+    float startSeconds = CMTimeGetSeconds(timeRange.start);
+    float durationSeconds = CMTimeGetSeconds(timeRange.duration);
+    
+    NSTimeInterval result = startSeconds + durationSeconds;
+    
+    return result;
+}
+
+//缓冲回调
+-(void)bufferingCallback{
+    WeakSelf;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //        [weakSelf masterplayerPlay];
+
+    });
+}
+
 
 -(CMTime)playerItemDuration{
     AVPlayerItem *playerItem = _currentItem;

@@ -19,6 +19,8 @@
         self.playflag = NO;  //默认未点击播放按钮
 
         self.playerCPanel = [[MPlayerControlPanel alloc] init];
+        self.playerCPanel.delegate = self;
+        
         self.mpbView = [[MPlayerBottomView alloc] init];
         self.mpbView.delegate = self;
         [self.mpbView.playSlider addTarget:self action:@selector(sliderValueChanged:) forControlEvents:UIControlEventValueChanged];
@@ -319,7 +321,6 @@
             else{
                 [self.playerCPanel hideLoadingWidgets:YES];
             }
-            
         }
         else if([keyPath isEqualToString:@"playbackBufferEmpty"]){
             //缓冲区为空
@@ -528,8 +529,32 @@
     });
 }
 
+//playerPanelDelegate
+//播放和暂停控制
+//player.rate 1播放中 0暂停  -1播放失败
+-(void)playerPanelDelegatePlayBtnTouchSelector{
+    if (!self.playflag && self.masterPlayer.rate != 1) {
+        self.playflag = YES;
+        
+        if ([self videocurrentTime] >= [self videoDuration]) {
+            //播放完成后点击播放重播
+            [self setVideoCurrentTime:0.0f];
+        }
+        
+        
+    }
+    else{
+        self.playflag = NO;
+        [self masterPlayerPause];
+    }
+}
 
-
+//暂停
+-(void)masterPlayerPause{
+    [self.masterPlayer pause];
+    [self.playerCPanel hidePanelWidgetsBool:NO];
+    [self.playerCPanel.playBtn setImage:[UIImage imageNamed:@"c_pause_icon"] forState:UIControlStateNormal];
+}
 
 
 
